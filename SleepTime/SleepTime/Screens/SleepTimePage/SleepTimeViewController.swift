@@ -8,7 +8,11 @@
 
 import UIKit
 
-protocol SleepTimeViewing: AnyObject {}
+protocol SleepTimeViewing: AnyObject {
+    var sleepTimerValue: String { get set }
+    
+    func showTimerOptions(_ options: [SleepTimerOption], completion: @escaping (SleepTimerOption) -> Void)
+}
 
 final class SleepTimeViewController: UIViewController {
     private enum Constants {
@@ -28,9 +32,9 @@ final class SleepTimeViewController: UIViewController {
     private lazy var sleepTimerRow: ValueRow = {
         let row = ValueRow()
         row.title = "Sleep Timer"
-        row.value = "20 min"
+        row.value = ""
         row.tapAction = { [weak self] in
-            print("Sleep Timer row tapped")
+            self?.presenter.viewDidTapTimer()
         }
         row.translatesAutoresizingMaskIntoConstraints = false
         row.heightAnchor.constraint(equalToConstant: Constants.buttonsHeight).isActive = true
@@ -87,6 +91,8 @@ final class SleepTimeViewController: UIViewController {
 
         addStateLabel()
         addStackView()
+        
+        presenter.viewReady()
     }
     
     // MARK: - Add Views
@@ -111,4 +117,23 @@ final class SleepTimeViewController: UIViewController {
     }
 }
 
-extension SleepTimeViewController: SleepTimeViewing {}
+extension SleepTimeViewController: SleepTimeViewing {
+    var sleepTimerValue: String {
+        get { sleepTimerRow.value ?? "" }
+        set { sleepTimerRow.value = newValue }
+    }
+    
+    func showTimerOptions(_ options: [SleepTimerOption], completion: @escaping (SleepTimerOption) -> Void) {
+        let actionSheet = UIAlertController(title: nil, message: "Sleep Times", preferredStyle: .actionSheet)
+        options.forEach { option in
+            let action = UIAlertAction(title: option.stringValue, style: .default) { _ in
+                print("Selected: \(option.stringValue)")
+                completion(option)
+            }
+            actionSheet.addAction(action)
+        }
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
+}
