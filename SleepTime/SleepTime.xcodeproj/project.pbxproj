@@ -9,19 +9,23 @@
 /* Begin PBXBuildFile section */
 		2D9E0B2D244317B4004A2E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B2C244317B4004A2E40 /* AppDelegate.swift */; };
 		2D9E0B2F244317B4004A2E40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B2E244317B4004A2E40 /* SceneDelegate.swift */; };
-		2D9E0B31244317B4004A2E40 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B30244317B4004A2E40 /* HomeViewController.swift */; };
+		2D9E0B31244317B4004A2E40 /* SleepTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B30244317B4004A2E40 /* SleepTimeViewController.swift */; };
 		2D9E0B36244317B6004A2E40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D9E0B35244317B6004A2E40 /* Assets.xcassets */; };
 		2D9E0B39244317B6004A2E40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D9E0B37244317B6004A2E40 /* LaunchScreen.storyboard */; };
+		2D9E0B5C24432571004A2E40 /* ValueRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B5B24432571004A2E40 /* ValueRow.swift */; };
+		2D9E0B5F244344BF004A2E40 /* SleepTimePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B5E244344BE004A2E40 /* SleepTimePresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2D9E0B29244317B4004A2E40 /* SleepTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D9E0B2C244317B4004A2E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D9E0B2E244317B4004A2E40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2D9E0B30244317B4004A2E40 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		2D9E0B30244317B4004A2E40 /* SleepTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimeViewController.swift; sourceTree = "<group>"; };
 		2D9E0B35244317B6004A2E40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D9E0B38244317B6004A2E40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D9E0B3A244317B6004A2E40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D9E0B5B24432571004A2E40 /* ValueRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueRow.swift; sourceTree = "<group>"; };
+		2D9E0B5E244344BE004A2E40 /* SleepTimePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimePresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				2D9E0B4E24431DFC004A2E40 /* SupportingFiles */,
-				2D9E0B30244317B4004A2E40 /* HomeViewController.swift */,
+				2D9E0B5924432452004A2E40 /* Screens */,
 				2D9E0B35244317B6004A2E40 /* Assets.xcassets */,
 			);
 			path = SleepTime;
@@ -70,6 +74,32 @@
 				2D9E0B3A244317B6004A2E40 /* Info.plist */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		2D9E0B5924432452004A2E40 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				2D9E0B5A2443245F004A2E40 /* UIElements */,
+				2D9E0B5D24434490004A2E40 /* SleepTimePage */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		2D9E0B5A2443245F004A2E40 /* UIElements */ = {
+			isa = PBXGroup;
+			children = (
+				2D9E0B5B24432571004A2E40 /* ValueRow.swift */,
+			);
+			path = UIElements;
+			sourceTree = "<group>";
+		};
+		2D9E0B5D24434490004A2E40 /* SleepTimePage */ = {
+			isa = PBXGroup;
+			children = (
+				2D9E0B30244317B4004A2E40 /* SleepTimeViewController.swift */,
+				2D9E0B5E244344BE004A2E40 /* SleepTimePresenter.swift */,
+			);
+			path = SleepTimePage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,8 +172,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D9E0B31244317B4004A2E40 /* HomeViewController.swift in Sources */,
+				2D9E0B31244317B4004A2E40 /* SleepTimeViewController.swift in Sources */,
 				2D9E0B2D244317B4004A2E40 /* AppDelegate.swift in Sources */,
+				2D9E0B5C24432571004A2E40 /* ValueRow.swift in Sources */,
+				2D9E0B5F244344BF004A2E40 /* SleepTimePresenter.swift in Sources */,
 				2D9E0B2F244317B4004A2E40 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
