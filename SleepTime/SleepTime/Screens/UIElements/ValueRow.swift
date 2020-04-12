@@ -67,6 +67,7 @@ final class ValueRow: UIView {
         backgroundColor = Constants.defaultColor
         layer.cornerRadius = 10
     }
+    
     private func addTapGestureRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         addGestureRecognizer(tap)

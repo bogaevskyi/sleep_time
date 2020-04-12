@@ -11,6 +11,7 @@ import Foundation
 protocol SleepTimePresenting {
     func viewReady()
     func viewDidTapTimer()
+    func viewDidTapAlarm()
 }
 
 enum SleepTimerOption {
@@ -26,7 +27,24 @@ enum SleepTimerOption {
 }
 
 final class SleepTimePresenter {
-    private var sleepTimer: SleepTimerOption = .time(20)
+    private lazy var alarmDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = .none
+        dateFormatter.timeStyle = .short
+        return dateFormatter
+    }()
+    
+    private var sleepTimer: SleepTimerOption = .time(20) {
+        didSet {
+            view.sleepTimerValue = sleepTimer.stringValue
+        }
+    }
+    
+    private var alarmDate: Date = Date() {
+        didSet {
+            view.alarmValue = alarmDateFormatter.string(from: alarmDate)
+        }
+    }
     
     private unowned let view: SleepTimeViewing
     
@@ -38,6 +56,7 @@ final class SleepTimePresenter {
 extension SleepTimePresenter: SleepTimePresenting {
     func viewReady() {
         view.sleepTimerValue = sleepTimer.stringValue
+        alarmDate = Date()
     }
     
     func viewDidTapTimer() {
@@ -50,7 +69,13 @@ extension SleepTimePresenter: SleepTimePresenting {
             .time(20)
         ]
         view.showTimerOptions(options) { [weak self] selected in
-            self?.view.sleepTimerValue = selected.stringValue
+            self?.sleepTimer = selected
+        }
+    }
+    
+    func viewDidTapAlarm() {
+        view.showTimePicker { [weak self] date in
+            self?.alarmDate = date
         }
     }
 }

@@ -10,8 +10,10 @@ import UIKit
 
 protocol SleepTimeViewing: AnyObject {
     var sleepTimerValue: String { get set }
+    var alarmValue: String { get set }
     
     func showTimerOptions(_ options: [SleepTimerOption], completion: @escaping (SleepTimerOption) -> Void)
+    func showTimePicker(_ completion: @escaping (Date) -> Void)
 }
 
 final class SleepTimeViewController: UIViewController {
@@ -44,9 +46,9 @@ final class SleepTimeViewController: UIViewController {
     private lazy var alarmRow: ValueRow = {
         let row = ValueRow()
         row.title = "Alarm"
-        row.value = "08:30 am"
+        row.value = ""
         row.tapAction = { [weak self] in
-            print("Alarm row tapped")
+            self?.presenter.viewDidTapAlarm()
         }
         row.translatesAutoresizingMaskIntoConstraints = false
         row.heightAnchor.constraint(equalToConstant: Constants.buttonsHeight).isActive = true
@@ -123,6 +125,11 @@ extension SleepTimeViewController: SleepTimeViewing {
         set { sleepTimerRow.value = newValue }
     }
     
+    var alarmValue: String {
+        get { alarmRow.value ?? "" }
+        set { alarmRow.value = newValue }
+    }
+    
     func showTimerOptions(_ options: [SleepTimerOption], completion: @escaping (SleepTimerOption) -> Void) {
         let actionSheet = UIAlertController(title: nil, message: "Sleep Times", preferredStyle: .actionSheet)
         options.forEach { option in
@@ -135,5 +142,11 @@ extension SleepTimeViewController: SleepTimeViewing {
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func showTimePicker(_ completion: @escaping (Date) -> Void) {
+        let timePicker = TimePickerViewController()
+        timePicker.selectDateAction = completion
+        present(timePicker, animated: true, completion: nil)
     }
 }
