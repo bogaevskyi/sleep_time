@@ -8,22 +8,15 @@
 
 import UIKit
 
-enum SleepTimeViewState: String {
-    case idle = "Idle"
-    case playing = "Playing"
-    case recording = "Recording"
-    case paused = "Paused"
-    case alarm = "Alarm"
-}
-
 protocol SleepTimeViewing: AnyObject {
     var sleepTimerValue: String { get set }
     var alarmValue: String { get set }
     
-    func update(viewState: SleepTimeViewState)
+    func update(viewState: SleepTimeState)
     
     func showTimerOptions(_ options: [SleepTimerOption], completion: @escaping (SleepTimerOption) -> Void)
     func showTimePicker(_ completion: @escaping (Date) -> Void)
+    func showAlarmAlert(_ completion: @escaping () -> Void)
 }
 
 final class SleepTimeViewController: UIViewController {
@@ -147,7 +140,7 @@ extension SleepTimeViewController: SleepTimeViewing {
         set { alarmRow.value = newValue }
     }
     
-    func update(viewState: SleepTimeViewState) {
+    func update(viewState: SleepTimeState) {
         switch viewState {
             case .idle:
                 updatePlayPauseButton(isPlay: false)
@@ -160,26 +153,47 @@ extension SleepTimeViewController: SleepTimeViewing {
             case .alarm:
                 break
         }
-        stateLabel.text = viewState.rawValue
+        stateLabel.text = viewState.stringValue
     }
     
     func showTimerOptions(_ options: [SleepTimerOption], completion: @escaping (SleepTimerOption) -> Void) {
         let actionSheet = UIAlertController(title: nil, message: "Sleep Times", preferredStyle: .actionSheet)
         options.forEach { option in
             let action = UIAlertAction(title: option.stringValue, style: .default) { _ in
-                print("Selected: \(option.stringValue)")
                 completion(option)
             }
             actionSheet.addAction(action)
         }
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
-        present(actionSheet, animated: true, completion: nil)
+        present(actionSheet, animated: true)
     }
     
     func showTimePicker(_ completion: @escaping (Date) -> Void) {
         let timePicker = TimePickerViewController()
         timePicker.selectDateAction = completion
-        present(timePicker, animated: true, completion: nil)
+        present(timePicker, animated: true)
+    }
+    
+    func showAlarmAlert(_ completion: @escaping () -> Void) {
+        let alert = UIAlertController(title: nil, message: "Alarm wend off", preferredStyle: .alert)
+        let stopAction = UIAlertAction(title: "Stop", style: .default) { _ in
+            completion()
+        }
+        alert.addAction(stopAction)
+        present(alert, animated: true)
+        
+    }
+}
+
+extension SleepTimeState {
+    var stringValue: String {
+        switch self {
+            case .idle: return "Idle"
+            case .playing: return "Playing"
+            case .recording: return "Recording"
+            case .paused: return "Paused"
+            case .alarm: return "Alarm"
+        }
     }
 }

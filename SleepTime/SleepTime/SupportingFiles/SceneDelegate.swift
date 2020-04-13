@@ -15,7 +15,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let vc = SleepTimeViewController()
-        vc.presenter = SleepTimePresenter(view: vc)
+        vc.presenter = SleepTimePresenter(
+            view: vc,
+            notificationManager: NotificationManager(),
+            soundManager: SoundManager()
+        )
         
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = vc

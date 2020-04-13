@@ -9,7 +9,12 @@
 import Foundation
 import UserNotifications
 
-final class NotificationManager: NSObject {
+protocol NotificationManaging {
+    func requestAuthorization()
+    func scheduleNotification(at date: Date)
+}
+
+final class NotificationManager: NotificationManaging {
     private enum Constants {
         static let notificationIdentifier = "SleepTime Local Notification"
     }
@@ -37,7 +42,6 @@ final class NotificationManager: NSObject {
         let request = UNNotificationRequest(identifier: Constants.notificationIdentifier, content: content, trigger: trigger)
 
         notificationCenter.add(request) { (error) in
-            print("notificationCenter ADD completion")
             if let error = error {
                 print("Error \(error.localizedDescription)")
             }
