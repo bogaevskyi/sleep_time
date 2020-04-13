@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D206E7624439B0B00AEEFF4 /* alarm.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2D206E7424439B0B00AEEFF4 /* alarm.mp4 */; };
+		2D206E7724439B0B00AEEFF4 /* nature.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2D206E7524439B0B00AEEFF4 /* nature.mp4 */; };
+		2D206E7924439BEE00AEEFF4 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206E7824439BEE00AEEFF4 /* AudioPlayer.swift */; };
 		2D608EAF2443733200D8B5DB /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D608EAE2443733200D8B5DB /* TimePickerViewController.swift */; };
 		2D608EB22443888300D8B5DB /* ModalShadedPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D608EB12443888300D8B5DB /* ModalShadedPresentationController.swift */; };
 		2D608EB4244388AA00D8B5DB /* TimePickerModalTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D608EB3244388AA00D8B5DB /* TimePickerModalTransition.swift */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D206E7424439B0B00AEEFF4 /* alarm.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.mp4; sourceTree = "<group>"; };
+		2D206E7524439B0B00AEEFF4 /* nature.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = nature.mp4; sourceTree = "<group>"; };
+		2D206E7824439BEE00AEEFF4 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		2D608EAE2443733200D8B5DB /* TimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
 		2D608EB12443888300D8B5DB /* ModalShadedPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalShadedPresentationController.swift; sourceTree = "<group>"; };
 		2D608EB3244388AA00D8B5DB /* TimePickerModalTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerModalTransition.swift; sourceTree = "<group>"; };
@@ -45,6 +51,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D206E7324439B0A00AEEFF4 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				2D206E7424439B0B00AEEFF4 /* alarm.mp4 */,
+				2D206E7524439B0B00AEEFF4 /* nature.mp4 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		2D608EB02443887700D8B5DB /* TimePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +89,7 @@
 		2D9E0B2B244317B4004A2E40 /* SleepTime */ = {
 			isa = PBXGroup;
 			children = (
+				2D206E7324439B0A00AEEFF4 /* Sounds */,
 				2D9E0B4E24431DFC004A2E40 /* SupportingFiles */,
 				2D9E0B5924432452004A2E40 /* Screens */,
 				2D9E0B35244317B6004A2E40 /* Assets.xcassets */,
@@ -115,6 +131,7 @@
 			children = (
 				2D9E0B30244317B4004A2E40 /* SleepTimeViewController.swift */,
 				2D9E0B5E244344BE004A2E40 /* SleepTimePresenter.swift */,
+				2D206E7824439BEE00AEEFF4 /* AudioPlayer.swift */,
 			);
 			path = SleepTimePage;
 			sourceTree = "<group>";
@@ -177,8 +194,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D206E7724439B0B00AEEFF4 /* nature.mp4 in Resources */,
 				2D9E0B39244317B6004A2E40 /* LaunchScreen.storyboard in Resources */,
 				2D9E0B36244317B6004A2E40 /* Assets.xcassets in Resources */,
+				2D206E7624439B0B00AEEFF4 /* alarm.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +210,7 @@
 			files = (
 				2D9E0B31244317B4004A2E40 /* SleepTimeViewController.swift in Sources */,
 				2D608EAF2443733200D8B5DB /* TimePickerViewController.swift in Sources */,
+				2D206E7924439BEE00AEEFF4 /* AudioPlayer.swift in Sources */,
 				2D9E0B2D244317B4004A2E40 /* AppDelegate.swift in Sources */,
 				2D9E0B5C24432571004A2E40 /* ValueRow.swift in Sources */,
 				2D608EB22443888300D8B5DB /* ModalShadedPresentationController.swift in Sources */,

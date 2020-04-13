@@ -8,9 +8,19 @@
 
 import UIKit
 
+enum SleepTimeViewState: String {
+    case idle = "Idle"
+    case playing = "Playing"
+    case recording = "Recording"
+    case paused = "Paused"
+    case alarm = "Alarm"
+}
+
 protocol SleepTimeViewing: AnyObject {
     var sleepTimerValue: String { get set }
     var alarmValue: String { get set }
+    
+    func update(viewState: SleepTimeViewState)
     
     func showTimerOptions(_ options: [SleepTimerOption], completion: @escaping (SleepTimerOption) -> Void)
     func showTimePicker(_ completion: @escaping (Date) -> Void)
@@ -115,7 +125,14 @@ final class SleepTimeViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func playPauseButtonTapped() {
-        print("Play/Pause button tapped")
+        presenter.viewDidTapPlayPause()
+    }
+    
+    // MARK: - Private
+    
+    private func updatePlayPauseButton(isPlay: Bool) {
+        let title =  isPlay ? "Pause" : "Play"
+        playPauseButton.setTitle(title, for: .normal)
     }
 }
 
@@ -128,6 +145,22 @@ extension SleepTimeViewController: SleepTimeViewing {
     var alarmValue: String {
         get { alarmRow.value ?? "" }
         set { alarmRow.value = newValue }
+    }
+    
+    func update(viewState: SleepTimeViewState) {
+        switch viewState {
+            case .idle:
+                updatePlayPauseButton(isPlay: false)
+            case .playing:
+                updatePlayPauseButton(isPlay: true)
+            case .recording:
+                break
+            case .paused:
+                updatePlayPauseButton(isPlay: false)
+            case .alarm:
+                break
+        }
+        stateLabel.text = viewState.rawValue
     }
     
     func showTimerOptions(_ options: [SleepTimerOption], completion: @escaping (SleepTimerOption) -> Void) {

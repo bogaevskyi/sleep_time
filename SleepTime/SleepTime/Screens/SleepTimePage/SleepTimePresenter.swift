@@ -10,6 +10,7 @@ import Foundation
 
 protocol SleepTimePresenting {
     func viewReady()
+    func viewDidTapPlayPause()
     func viewDidTapTimer()
     func viewDidTapAlarm()
 }
@@ -27,12 +28,22 @@ enum SleepTimerOption {
 }
 
 final class SleepTimePresenter {
+    private enum Sounds {
+        static let nature = "nature"
+        static let alarm = "alarm"
+    }
+    
     private lazy var alarmDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = .none
         dateFormatter.timeStyle = .short
         return dateFormatter
     }()
+    
+    // TODO: inject
+    private lazy var player = AudioPlayer()
+    
+    // MARK: - Values
     
     private var sleepTimer: SleepTimerOption = .time(20) {
         didSet {
@@ -45,6 +56,8 @@ final class SleepTimePresenter {
             view.alarmValue = alarmDateFormatter.string(from: alarmDate)
         }
     }
+
+    // MARK: - Init
     
     private unowned let view: SleepTimeViewing
     
@@ -57,6 +70,17 @@ extension SleepTimePresenter: SleepTimePresenting {
     func viewReady() {
         view.sleepTimerValue = sleepTimer.stringValue
         alarmDate = Date()
+    }
+    
+    func viewDidTapPlayPause() {
+        
+        if case .time(let time) = sleepTimer {
+            view.update(viewState: .playing)
+            let duration: TimeInterval = Double(time) * 60.0 // to seconds
+            player.playInLoop(Sounds.nature, duration: duration) {
+                print("End sound")
+            }
+        }
     }
     
     func viewDidTapTimer() {
