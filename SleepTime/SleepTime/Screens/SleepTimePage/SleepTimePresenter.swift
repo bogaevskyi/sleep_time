@@ -70,14 +70,15 @@ extension SleepTimePresenter: SleepTimePresenting {
     func viewReady() {
         view.sleepTimerValue = sleepTimer.stringValue
         alarmDate = Date()
+        
+        player.setupSession()
     }
     
     func viewDidTapPlayPause() {
-        
         if case .time(let time) = sleepTimer {
             view.update(viewState: .playing)
             let duration: TimeInterval = Double(time) * 60.0 // to seconds
-            player.playInLoop(Sounds.nature, duration: duration) {
+            player.playInLoop(Sounds.nature, duration: duration) { [weak self] in
                 print("End sound")
             }
         }

@@ -8,13 +8,14 @@
 
 import AVFoundation
 
-final class AudioPlayer {
+final class AudioPlayer: NSObject {
+    // Record
+    private var audioRecorder: AVAudioRecorder?
+    
+    // Play in loop
     private var queuePlayer: AVQueuePlayer?
     private var playerLooper: AVPlayerLooper?
     
-    init() {
-        setupSession()
-    }
     
     /// - Parameters:
     ///   - duration: in seconds
@@ -58,13 +59,69 @@ final class AudioPlayer {
         }
     }
     
-    private func setupSession() {
+    func setupSession() {
         let session = AVAudioSession.sharedInstance()
         do {
-            try session.setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            try session.setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers])
             try session.setActive(true)
+            session.requestRecordPermission { allowed in
+                // TODO: handle record permission result
+                if allowed {
+                    print("RequestRecordPermission allowed")
+                } else {
+                    print("RequestRecordPermission not allowed")
+                }
+            }
         } catch {
             print("Error \(error.localizedDescription)")
         }
+    }
+    
+    
+    // MARK: - Recorder
+    
+    
+    private func setupRecorder() {
+        guard let directory = documentDirectory() else { return }
+        let fileName = generateFileName()
+        let fileDirectory = directory.appendingPathComponent(fileName)
+        
+        let settings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatMPEG4AAC,
+            AVSampleRateKey: 44100,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
+        
+        do {
+            audioRecorder = try AVAudioRecorder(url: fileDirectory, settings: settings)
+            audioRecorder?.prepareToRecord()
+        } catch {
+            print("AVAudioRecorder error: \(error.localizedDescription)")
+        }
+    }
+    
+    func startRecording() {
+        print("startRecording")
+        setupRecorder()
+        audioRecorder?.record()
+    }
+    
+    func stopRecording() {
+        print("stopRecording")
+        audioRecorder?.stop()
+    }
+    
+    // MARK: - File Utils
+    
+    private func documentDirectory() -> URL? {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    }
+    
+    private func generateFileName() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy-HH-mm-ss"
+        let str = formatter.string(from: Date())
+        return "record-" + str + ".m4a"
     }
 }
