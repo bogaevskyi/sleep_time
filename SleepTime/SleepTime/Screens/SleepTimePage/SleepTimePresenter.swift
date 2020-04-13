@@ -42,6 +42,7 @@ final class SleepTimePresenter {
     
     // TODO: inject
     private lazy var player = AudioPlayer()
+    private lazy var notificationManager = NotificationManager()
     
     // MARK: - Values
     
@@ -72,9 +73,12 @@ extension SleepTimePresenter: SleepTimePresenting {
         alarmDate = Date()
         
         player.setupSession()
+        notificationManager.requestAuthorization()
     }
     
     func viewDidTapPlayPause() {
+        notificationManager.scheduleNotification(at: alarmDate)
+        
         if case .time(let time) = sleepTimer {
             view.update(viewState: .playing)
             let duration: TimeInterval = Double(time) * 60.0 // to seconds
