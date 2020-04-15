@@ -14,6 +14,15 @@ enum SleepTimeState {
     case recording
     case paused
     case alarm
+    
+    var canPause: Bool {
+        switch self {
+            case .playing:
+            return true
+            default:
+            return false
+        }
+    }
 }
 
 protocol SleepTimePresenting {
@@ -36,11 +45,6 @@ enum SleepTimerOption {
 }
 
 final class SleepTimePresenter {
-    private enum Sounds {
-        static let nature = "nature"
-        static let alarm = "alarm"
-    }
-    
     private lazy var alarmDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = .none
@@ -49,6 +53,8 @@ final class SleepTimePresenter {
     }()
     
     // MARK: - Values
+    
+    private var pausedState: SleepTimeState?
     
     private var state: SleepTimeState = .idle {
         didSet {
@@ -70,10 +76,10 @@ final class SleepTimePresenter {
     // MARK: - Init
     
     private unowned let view: SleepTimeViewing
-    private let soundManager: SoundManaging
+    private let soundManager: SleepTimeSoundManaging
     private let notificationManager: NotificationManaging
     
-    init(view: SleepTimeViewing, notificationManager: NotificationManaging, soundManager: SoundManaging) {
+    init(view: SleepTimeViewing, notificationManager: NotificationManaging, soundManager: SleepTimeSoundManaging) {
         self.view = view
         self.notificationManager = notificationManager
         self.soundManager = soundManager
@@ -96,40 +102,40 @@ final class SleepTimePresenter {
     private func startRecording() {
         state = .recording
         let difference = alarmDate.timeIntervalSince(Date())
-        soundManager.startRecording(forDuration: difference) { [weak self] in
-            self?.runAlermFlow()
+        soundManager.startRecording(forDuration: difference) { [weak self] _ in
+            self?.runAlarmFlow()
         }
     }
     
     private func playNatureSound(forDuration duration: Int) {
         state = .playing
         let duration: TimeInterval = TimeInterval(duration) * 60.0 // to seconds
-        soundManager.playInLoop(Sounds.nature, duration: duration) { [weak self] in
+        soundManager.playIntro(forDuration: duration) { [weak self] in
             self?.startRecording()
         }
     }
     
     private func pauseNatureSound() {
         state = .paused
-        soundManager.pauseSoundInLoop()
+        soundManager.pauseIntro()
     }
     
     private func resumeNatureSound() {
         state = .playing
-        soundManager.resumeSoundInLoop()
+        soundManager.resumeIntro()
     }
     
-    private func runAlermFlow() {
+    private func runAlarmFlow() {
         state = .alarm
-        soundManager.play(Sounds.alarm)
+        soundManager.playAlarm()
         view.showAlarmAlert { [weak self] in
             self?.resetAll()
         }
     }
     
     private func resetAll() {
-        soundManager.pauseSoundInLoop()
-        soundManager.pause()
+        soundManager.pauseIntro()
+        soundManager.pauseAlarm()
         soundManager.stopRecording()
         
         view.update(viewState: .idle)
@@ -142,8 +148,22 @@ extension SleepTimePresenter: SleepTimePresenting {
         view.sleepTimerValue = sleepTimer.stringValue
         alarmDate = Date()
         
-        soundManager.setupSession()
         notificationManager.requestAuthorization()
+        
+        soundManager.setupSession()
+        soundManager.observeInterruptionBegan { [weak self] in
+            guard let strongSelf = self else { return }
+            if strongSelf.state.canPause {
+                strongSelf.pausedState = strongSelf.state
+                strongSelf.state = .paused
+            }
+        }
+        soundManager.observeInterruptionEnded { [weak self] shouldResume in
+            guard let strongSelf = self else { return }
+            if let pausedState = strongSelf.pausedState {
+                strongSelf.state = pausedState
+            }
+        }
     }
     
     func viewDidTapPlayPause() {

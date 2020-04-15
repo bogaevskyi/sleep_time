@@ -147,7 +147,7 @@ extension SleepTimeViewController: SleepTimeViewing {
             case .playing:
                 updatePlayPauseButton(isPlay: true)
             case .recording:
-                break
+                updatePlayPauseButton(isPlay: false)
             case .paused:
                 updatePlayPauseButton(isPlay: false)
             case .alarm:
@@ -182,7 +182,6 @@ extension SleepTimeViewController: SleepTimeViewing {
         }
         alert.addAction(stopAction)
         present(alert, animated: true)
-        
     }
 }
 
