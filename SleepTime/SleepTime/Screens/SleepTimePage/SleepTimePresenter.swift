@@ -45,12 +45,7 @@ enum SleepTimerOption {
 }
 
 final class SleepTimePresenter {
-    private lazy var alarmDateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = .none
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }()
+    private lazy var alarmDateFormatter = DateFormatter.alarmDateFormatter
     
     // MARK: - Values
     

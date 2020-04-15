@@ -14,6 +14,11 @@
 		2D608EB22443888300D8B5DB /* ModalShadedPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D608EB12443888300D8B5DB /* ModalShadedPresentationController.swift */; };
 		2D608EB4244388AA00D8B5DB /* TimePickerModalTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D608EB3244388AA00D8B5DB /* TimePickerModalTransition.swift */; };
 		2D6F5E2824471AB800D8D4B8 /* SleepTimeScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6F5E2724471AB800D8D4B8 /* SleepTimeScheduler.swift */; };
+		2D6F5E312447264600D8D4B8 /* SleepTimePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6F5E302447264600D8D4B8 /* SleepTimePresenterTests.swift */; };
+		2D6F5E3B244726F700D8D4B8 /* MockSleepTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6F5E3A244726F700D8D4B8 /* MockSleepTimeView.swift */; };
+		2D6F5E3D2447278A00D8D4B8 /* MockNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6F5E3C2447278A00D8D4B8 /* MockNotificationManager.swift */; };
+		2D6F5E3F244727D700D8D4B8 /* MockSleepTimeSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6F5E3E244727D700D8D4B8 /* MockSleepTimeSoundManager.swift */; };
+		2D6F5E4224472A8700D8D4B8 /* DateFormetter+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6F5E4124472A8700D8D4B8 /* DateFormetter+Utils.swift */; };
 		2D9E0B2D244317B4004A2E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B2C244317B4004A2E40 /* AppDelegate.swift */; };
 		2D9E0B2F244317B4004A2E40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B2E244317B4004A2E40 /* SceneDelegate.swift */; };
 		2D9E0B31244317B4004A2E40 /* SleepTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B30244317B4004A2E40 /* SleepTimeViewController.swift */; };
@@ -28,6 +33,16 @@
 		2DB946742445CBE300B6367D /* AudioSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB946732445CBE300B6367D /* AudioSession.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2D6F5E332447264600D8D4B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D9E0B21244317B4004A2E40 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2D9E0B28244317B4004A2E40;
+			remoteInfo = SleepTime;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		2D206E7424439B0B00AEEFF4 /* alarm.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.mp4; sourceTree = "<group>"; };
 		2D206E7524439B0B00AEEFF4 /* nature.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = nature.mp4; sourceTree = "<group>"; };
@@ -36,6 +51,13 @@
 		2D608EB12443888300D8B5DB /* ModalShadedPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalShadedPresentationController.swift; sourceTree = "<group>"; };
 		2D608EB3244388AA00D8B5DB /* TimePickerModalTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerModalTransition.swift; sourceTree = "<group>"; };
 		2D6F5E2724471AB800D8D4B8 /* SleepTimeScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimeScheduler.swift; sourceTree = "<group>"; };
+		2D6F5E2E2447264600D8D4B8 /* SleepTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SleepTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D6F5E302447264600D8D4B8 /* SleepTimePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimePresenterTests.swift; sourceTree = "<group>"; };
+		2D6F5E322447264600D8D4B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D6F5E3A244726F700D8D4B8 /* MockSleepTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSleepTimeView.swift; sourceTree = "<group>"; };
+		2D6F5E3C2447278A00D8D4B8 /* MockNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNotificationManager.swift; sourceTree = "<group>"; };
+		2D6F5E3E244727D700D8D4B8 /* MockSleepTimeSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSleepTimeSoundManager.swift; sourceTree = "<group>"; };
+		2D6F5E4124472A8700D8D4B8 /* DateFormetter+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormetter+Utils.swift"; sourceTree = "<group>"; };
 		2D9E0B29244317B4004A2E40 /* SleepTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D9E0B2C244317B4004A2E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D9E0B2E244317B4004A2E40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +75,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2D6F5E2B2447264600D8D4B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D9E0B26244317B4004A2E40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,10 +111,39 @@
 			path = TimePicker;
 			sourceTree = "<group>";
 		};
+		2D6F5E2F2447264600D8D4B8 /* SleepTimeTests */ = {
+			isa = PBXGroup;
+			children = (
+				2D6F5E38244726E200D8D4B8 /* Mocks */,
+				2D6F5E302447264600D8D4B8 /* SleepTimePresenterTests.swift */,
+				2D6F5E322447264600D8D4B8 /* Info.plist */,
+			);
+			path = SleepTimeTests;
+			sourceTree = "<group>";
+		};
+		2D6F5E38244726E200D8D4B8 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2D6F5E3A244726F700D8D4B8 /* MockSleepTimeView.swift */,
+				2D6F5E3C2447278A00D8D4B8 /* MockNotificationManager.swift */,
+				2D6F5E3E244727D700D8D4B8 /* MockSleepTimeSoundManager.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2D6F5E4024472A6500D8D4B8 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2D6F5E4124472A8700D8D4B8 /* DateFormetter+Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		2D9E0B20244317B4004A2E40 = {
 			isa = PBXGroup;
 			children = (
 				2D9E0B2B244317B4004A2E40 /* SleepTime */,
+				2D6F5E2F2447264600D8D4B8 /* SleepTimeTests */,
 				2D9E0B2A244317B4004A2E40 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -94,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				2D9E0B29244317B4004A2E40 /* SleepTime.app */,
+				2D6F5E2E2447264600D8D4B8 /* SleepTimeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,6 +160,7 @@
 		2D9E0B2B244317B4004A2E40 /* SleepTime */ = {
 			isa = PBXGroup;
 			children = (
+				2D6F5E4024472A6500D8D4B8 /* Utils */,
 				2DB946752445CECA00B6367D /* Notifications */,
 				2DB9466A2445B48B00B6367D /* Audio */,
 				2D9E0B5924432452004A2E40 /* Screens */,
@@ -173,6 +233,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2D6F5E2D2447264600D8D4B8 /* SleepTimeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D6F5E352447264600D8D4B8 /* Build configuration list for PBXNativeTarget "SleepTimeTests" */;
+			buildPhases = (
+				2D6F5E2A2447264600D8D4B8 /* Sources */,
+				2D6F5E2B2447264600D8D4B8 /* Frameworks */,
+				2D6F5E2C2447264600D8D4B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2D6F5E342447264600D8D4B8 /* PBXTargetDependency */,
+			);
+			name = SleepTimeTests;
+			productName = SleepTimeTests;
+			productReference = 2D6F5E2E2447264600D8D4B8 /* SleepTimeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		2D9E0B28244317B4004A2E40 /* SleepTime */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D9E0B48244317B6004A2E40 /* Build configuration list for PBXNativeTarget "SleepTime" */;
@@ -200,6 +278,10 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Andrew Bogaevskyi";
 				TargetAttributes = {
+					2D6F5E2D2447264600D8D4B8 = {
+						CreatedOnToolsVersion = 11.4;
+						TestTargetID = 2D9E0B28244317B4004A2E40;
+					};
 					2D9E0B28244317B4004A2E40 = {
 						CreatedOnToolsVersion = 11.4;
 					};
@@ -219,11 +301,19 @@
 			projectRoot = "";
 			targets = (
 				2D9E0B28244317B4004A2E40 /* SleepTime */,
+				2D6F5E2D2447264600D8D4B8 /* SleepTimeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2D6F5E2C2447264600D8D4B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D9E0B27244317B4004A2E40 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,12 +328,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2D6F5E2A2447264600D8D4B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D6F5E3F244727D700D8D4B8 /* MockSleepTimeSoundManager.swift in Sources */,
+				2D6F5E312447264600D8D4B8 /* SleepTimePresenterTests.swift in Sources */,
+				2D6F5E3D2447278A00D8D4B8 /* MockNotificationManager.swift in Sources */,
+				2D6F5E3B244726F700D8D4B8 /* MockSleepTimeView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2D9E0B25244317B4004A2E40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				2D9E0B31244317B4004A2E40 /* SleepTimeViewController.swift in Sources */,
 				2D608EAF2443733200D8B5DB /* TimePickerViewController.swift in Sources */,
+				2D6F5E4224472A8700D8D4B8 /* DateFormetter+Utils.swift in Sources */,
 				2DB9466C2445B49D00B6367D /* AudioPlayer.swift in Sources */,
 				2D9E0B2D244317B4004A2E40 /* AppDelegate.swift in Sources */,
 				2D9E0B5C24432571004A2E40 /* ValueRow.swift in Sources */,
@@ -262,6 +364,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2D6F5E342447264600D8D4B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2D9E0B28244317B4004A2E40 /* SleepTime */;
+			targetProxy = 2D6F5E332447264600D8D4B8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		2D9E0B37244317B6004A2E40 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -274,6 +384,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2D6F5E362447264600D8D4B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J9CZ77Y96U;
+				INFOPLIST_FILE = SleepTimeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bogaevskyi.SleepTimeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SleepTime.app/SleepTime";
+			};
+			name = Debug;
+		};
+		2D6F5E372447264600D8D4B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J9CZ77Y96U;
+				INFOPLIST_FILE = SleepTimeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bogaevskyi.SleepTimeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SleepTime.app/SleepTime";
+			};
+			name = Release;
+		};
 		2D9E0B46244317B6004A2E40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -427,6 +577,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2D6F5E352447264600D8D4B8 /* Build configuration list for PBXNativeTarget "SleepTimeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D6F5E362447264600D8D4B8 /* Debug */,
+				2D6F5E372447264600D8D4B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D9E0B24244317B4004A2E40 /* Build configuration list for PBXProject "SleepTime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
