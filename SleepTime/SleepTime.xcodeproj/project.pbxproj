@@ -13,6 +13,7 @@
 		2D608EAF2443733200D8B5DB /* TimePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D608EAE2443733200D8B5DB /* TimePickerViewController.swift */; };
 		2D608EB22443888300D8B5DB /* ModalShadedPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D608EB12443888300D8B5DB /* ModalShadedPresentationController.swift */; };
 		2D608EB4244388AA00D8B5DB /* TimePickerModalTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D608EB3244388AA00D8B5DB /* TimePickerModalTransition.swift */; };
+		2D6F5E2824471AB800D8D4B8 /* SleepTimeScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6F5E2724471AB800D8D4B8 /* SleepTimeScheduler.swift */; };
 		2D9E0B2D244317B4004A2E40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B2C244317B4004A2E40 /* AppDelegate.swift */; };
 		2D9E0B2F244317B4004A2E40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B2E244317B4004A2E40 /* SceneDelegate.swift */; };
 		2D9E0B31244317B4004A2E40 /* SleepTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9E0B30244317B4004A2E40 /* SleepTimeViewController.swift */; };
@@ -34,6 +35,7 @@
 		2D608EAE2443733200D8B5DB /* TimePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerViewController.swift; sourceTree = "<group>"; };
 		2D608EB12443888300D8B5DB /* ModalShadedPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalShadedPresentationController.swift; sourceTree = "<group>"; };
 		2D608EB3244388AA00D8B5DB /* TimePickerModalTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerModalTransition.swift; sourceTree = "<group>"; };
+		2D6F5E2724471AB800D8D4B8 /* SleepTimeScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimeScheduler.swift; sourceTree = "<group>"; };
 		2D9E0B29244317B4004A2E40 /* SleepTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D9E0B2C244317B4004A2E40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D9E0B2E244317B4004A2E40 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				2D9E0B30244317B4004A2E40 /* SleepTimeViewController.swift */,
 				2D9E0B5E244344BE004A2E40 /* SleepTimePresenter.swift */,
 				2DB946712445BC8300B6367D /* SleepTimeSoundManager.swift */,
+				2D6F5E2724471AB800D8D4B8 /* SleepTimeScheduler.swift */,
 			);
 			path = SleepTimePage;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				2D608EB22443888300D8B5DB /* ModalShadedPresentationController.swift in Sources */,
 				2D9E0B5F244344BF004A2E40 /* SleepTimePresenter.swift in Sources */,
 				2DB946702445B4B000B6367D /* AudioRecorder.swift in Sources */,
+				2D6F5E2824471AB800D8D4B8 /* SleepTimeScheduler.swift in Sources */,
 				2D9E0B2F244317B4004A2E40 /* SceneDelegate.swift in Sources */,
 				2DB9466E2445B4A700B6367D /* AudioLoopPlayer.swift in Sources */,
 				2DB946742445CBE300B6367D /* AudioSession.swift in Sources */,

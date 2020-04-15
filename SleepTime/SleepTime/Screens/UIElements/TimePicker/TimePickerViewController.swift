@@ -96,10 +96,16 @@ final class TimePickerViewController: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
+    /// E.g. for date with time 12:45:37 returns 12:45:00
+    private func eraseSeconds(of date: Date) -> Date? {
+        return Calendar.current.dateInterval(of: .minute, for: datePicked.date)?.start
+    }
+    
     // MARK: - Actions
     
     @objc private func doneButtonTapped() {
-        selectDateAction?(datePicked.date)
+        let date = eraseSeconds(of: datePicked.date) ?? datePicked.date
+        selectDateAction?(date)
         dismiss(animated: true, completion: nil)
     }
     

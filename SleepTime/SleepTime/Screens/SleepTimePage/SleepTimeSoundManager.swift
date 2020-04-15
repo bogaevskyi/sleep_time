@@ -17,7 +17,7 @@ protocol SleepTimeSoundManaging {
     func observeInterruptionEnded(_ handler: @escaping (_ shouldResume: Bool) -> Void)
     
     // Intro sound
-    func playIntro(forDuration duration: TimeInterval, completion: @escaping () -> Void)
+    func playIntro(forDuration duration: TimeInterval)
     func resumeIntro()
     func pauseIntro()
     
@@ -26,8 +26,12 @@ protocol SleepTimeSoundManaging {
     func pauseAlarm()
     
     // Recording
-    func startRecording(forDuration duration: TimeInterval, completion: @escaping (Bool) -> Void)
+    func startRecording(afterDelay delay: TimeInterval)
     func stopRecording()
+    
+    // All
+    func pauseAll()
+    func resumeAll()
 }
 
 final class SleepTimeSoundManager {
@@ -53,13 +57,12 @@ extension SleepTimeSoundManager: SleepTimeSoundManaging {
         session.setup()
         session.interruptionBeganHandler = { [weak self] in
             self?.interruptionBeganHandler?()
-            self?.loopPlayer.pause()
-            self?.player.stop()
+            self?.pauseAll()
         }
         session.interruptionEndedHandler = { [weak self] shouldResume in
             self?.interruptionEndedHandler?(shouldResume)
             guard shouldResume else { return }
-            self?.loopPlayer.resume()
+            self?.resumeAll()
         }
     }
     
@@ -75,8 +78,8 @@ extension SleepTimeSoundManager: SleepTimeSoundManaging {
     
     // MARK: - Intro sound
     
-    func playIntro(forDuration duration: TimeInterval, completion: @escaping () -> Void) {
-        loopPlayer.play(Sounds.intro, duration: duration, completion: completion)
+    func playIntro(forDuration duration: TimeInterval) {
+        loopPlayer.play(Sounds.intro, duration: duration)
     }
     
     func resumeIntro() {
@@ -99,11 +102,27 @@ extension SleepTimeSoundManager: SleepTimeSoundManaging {
     
     // MARK: - Recording
     
-    func startRecording(forDuration duration: TimeInterval, completion: @escaping (Bool) -> Void) {
-        recorder.startRecording(forDuration: duration, completion: completion)
+    /// Start recording.
+    /// - Parameters:
+    ///   - delay: A recording will start after delay time in seconds.
+    func startRecording(afterDelay delay: TimeInterval) {
+        recorder.startRecording(afterDelay: delay)
     }
     
     func stopRecording() {
         recorder.stopRecording()
+    }
+    
+    // MARK: - All
+    
+    func pauseAll() {
+        loopPlayer.pause()
+        recorder.pause()
+        player.stop()
+    }
+    
+    func resumeAll() {
+        loopPlayer.resume()
+        recorder.resume()
     }
 }

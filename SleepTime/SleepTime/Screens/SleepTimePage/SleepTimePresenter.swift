@@ -75,6 +75,8 @@ final class SleepTimePresenter {
 
     // MARK: - Init
     
+    private lazy var scheduler = SleepTimeScheduler()
+    
     private unowned let view: SleepTimeViewing
     private let soundManager: SleepTimeSoundManaging
     private let notificationManager: NotificationManaging
@@ -85,44 +87,33 @@ final class SleepTimePresenter {
         self.soundManager = soundManager
     }
     
-    // MARK: - Private
+    // MARK: - Flows
     
     private func startMainFlow() {
         notificationManager.scheduleNotification(at: alarmDate)
         
         if case .time(let time) = sleepTimer {
-            playNatureSound(forDuration: time)
+            let duration = TimeInterval(time) * 60.0 // to seconds
+            state = .playing
+            soundManager.playIntro(forDuration: duration)
+            startRecording(afterDelay: duration)
         } else {
-            startRecording()
+            startRecording(afterDelay: 0)
         }
     }
     
-    // MARK: -
-    
-    private func startRecording() {
-        state = .recording
-        let difference = alarmDate.timeIntervalSince(Date())
-        soundManager.startRecording(forDuration: difference) { [weak self] _ in
+    private func startRecording(afterDelay delay: TimeInterval) {
+        if delay > 0 {
+            scheduler.startRecordingTimer(delay) { [weak self] in
+                self?.state = .recording
+            }
+        }
+        
+        soundManager.startRecording(afterDelay: delay)
+        scheduler.startAlarmTimer(fireAt: alarmDate) { [weak self] in
+            self?.soundManager.stopRecording()
             self?.runAlarmFlow()
         }
-    }
-    
-    private func playNatureSound(forDuration duration: Int) {
-        state = .playing
-        let duration: TimeInterval = TimeInterval(duration) * 60.0 // to seconds
-        soundManager.playIntro(forDuration: duration) { [weak self] in
-            self?.startRecording()
-        }
-    }
-    
-    private func pauseNatureSound() {
-        state = .paused
-        soundManager.pauseIntro()
-    }
-    
-    private func resumeNatureSound() {
-        state = .playing
-        soundManager.resumeIntro()
     }
     
     private func runAlarmFlow() {
@@ -131,6 +122,25 @@ final class SleepTimePresenter {
         view.showAlarmAlert { [weak self] in
             self?.resetAll()
         }
+    }
+    
+    // MARK: - State Actions
+    
+    private func pause() {
+        state = .paused
+        scheduler.pauseRecordingTimer()
+        soundManager.pauseAll()
+    }
+    
+    private func resume() {
+        state = .playing
+        scheduler.resumeRecordingTimer()
+        soundManager.resumeAll()
+    }
+    
+    private func stopEntireFlow() {
+        scheduler.stopAlarmTimer()
+        soundManager.stopRecording()
     }
     
     private func resetAll() {
@@ -171,9 +181,9 @@ extension SleepTimePresenter: SleepTimePresenting {
             case .idle:
                 startMainFlow()
             case .playing:
-                pauseNatureSound()
+                pause()
             case .paused:
-                resumeNatureSound()
+                resume()
             case .recording:
                 resetAll()
             case .alarm: break;

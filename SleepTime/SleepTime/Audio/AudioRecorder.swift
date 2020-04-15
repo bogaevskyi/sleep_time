@@ -10,17 +10,29 @@ import AVFoundation
 
 final class AudioRecorder: NSObject {
     private var recorder: AVAudioRecorder?
-    private var recordingCompletion: ((_ successfully: Bool) -> Void)?
+    private var startRecordingTime: TimeInterval = 0
     
-    func startRecording(forDuration duration: TimeInterval, completion: ((Bool) -> Void)? = nil) {
-        recordingCompletion = completion
+    func startRecording(afterDelay delay: TimeInterval) {
         setupRecorder()
-        
         guard let recorder = recorder else { return }
-        if recorder.record(forDuration: duration) {
-            print("Recording successfully started.")
+        
+        startRecordingTime = recorder.deviceCurrentTime + delay
+        recorder.record(atTime: startRecordingTime)
+    }
+    
+    func pause() {
+        recorder?.pause()
+    }
+    
+    func resume() {
+        guard let recorder = recorder else { return }
+        
+        let diff = startRecordingTime - recorder.deviceCurrentTime
+        if diff > 0 {
+            let startTime = recorder.deviceCurrentTime + diff
+            recorder.record(atTime: startTime)
         } else {
-            print("Recording start failed.")
+            recorder.record()
         }
     }
     
@@ -45,7 +57,6 @@ final class AudioRecorder: NSObject {
         
         do {
             recorder = try AVAudioRecorder(url: fileDirectory, settings: settings)
-            recorder?.delegate = self
             recorder?.prepareToRecord()
         } catch {
             print("AVAudioRecorder error: \(error.localizedDescription)")
@@ -63,11 +74,5 @@ final class AudioRecorder: NSObject {
         formatter.dateFormat = "dd-MM-yyyy-HH-mm-ss"
         let dateString = formatter.string(from: Date())
         return "record-" + dateString + ".m4a"
-    }
-}
-
-extension AudioRecorder: AVAudioRecorderDelegate {
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        recordingCompletion?(flag)
     }
 }
