@@ -94,33 +94,39 @@ final class SleepTimePresenter {
         
         if case .time(let time) = sleepTimer {
             let duration = TimeInterval(time) * 60.0 // to seconds
-            state = .playing
-            soundManager.playIntro(forDuration: duration)
-            startRecording(afterDelay: duration)
+            startIntroFlow(forDuration: duration)
+            startRecordingFlow(afterDelay: duration)
         } else {
-            startRecording(afterDelay: 0)
+            startRecordingFlow(afterDelay: 0)
         }
     }
     
-    private func startRecording(afterDelay delay: TimeInterval) {
+    private func startIntroFlow(forDuration duration: TimeInterval) {
+        state = .playing
+        soundManager.playIntro(forDuration: duration)
+    }
+    
+    private func startRecordingFlow(afterDelay delay: TimeInterval) {
         if delay > 0 {
             scheduler.startRecordingTimer(delay) { [weak self] in
                 self?.state = .recording
             }
+        } else {
+            state = .recording
         }
         
         soundManager.startRecording(afterDelay: delay)
         scheduler.startAlarmTimer(fireAt: alarmDate) { [weak self] in
             self?.soundManager.stopRecording()
-            self?.runAlarmFlow()
+            self?.startAlarmFlow()
         }
     }
     
-    private func runAlarmFlow() {
+    private func startAlarmFlow() {
         state = .alarm
         soundManager.playAlarm()
         view.showAlarmAlert { [weak self] in
-            self?.resetAll()
+            self?.reset()
         }
     }
     
@@ -138,17 +144,14 @@ final class SleepTimePresenter {
         soundManager.resumeAll()
     }
     
-    private func stopEntireFlow() {
-        scheduler.stopAlarmTimer()
-        soundManager.stopRecording()
-    }
-    
-    private func resetAll() {
-        soundManager.pauseIntro()
-        soundManager.pauseAlarm()
-        soundManager.stopRecording()
+    private func reset() {
+        soundManager.stopAll()
         
-        view.update(viewState: .idle)
+        notificationManager.cancelNotification()
+        scheduler.stopRecordingTimer()
+        scheduler.stopAlarmTimer()
+        
+        state = .idle
     }
 }
 
@@ -185,7 +188,7 @@ extension SleepTimePresenter: SleepTimePresenting {
             case .paused:
                 resume()
             case .recording:
-                resetAll()
+                reset()
             case .alarm: break;
         }
     }

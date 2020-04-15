@@ -32,6 +32,7 @@ protocol SleepTimeSoundManaging {
     // All
     func pauseAll()
     func resumeAll()
+    func stopAll()
 }
 
 final class SleepTimeSoundManager {
@@ -124,5 +125,11 @@ extension SleepTimeSoundManager: SleepTimeSoundManaging {
     func resumeAll() {
         loopPlayer.resume()
         recorder.resume()
+    }
+    
+    func stopAll() {
+        loopPlayer.stop()
+        player.stop()
+        recorder.stopRecording()
     }
 }

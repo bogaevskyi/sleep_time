@@ -20,11 +20,6 @@ protocol SleepTimeViewing: AnyObject {
 }
 
 final class SleepTimeViewController: UIViewController {
-    private enum Constants {
-        static let buttonsHeight: CGFloat = 60
-        static let playPauseButtonSpacing: CGFloat = 40
-    }
-    
     private lazy var stateLabel: UILabel = {
         let label = UILabel()
         label.text = "Idle"
@@ -120,13 +115,6 @@ final class SleepTimeViewController: UIViewController {
     @objc private func playPauseButtonTapped() {
         presenter.viewDidTapPlayPause()
     }
-    
-    // MARK: - Private
-    
-    private func updatePlayPauseButton(isPlay: Bool) {
-        let title =  isPlay ? "Pause" : "Play"
-        playPauseButton.setTitle(title, for: .normal)
-    }
 }
 
 extension SleepTimeViewController: SleepTimeViewing {
@@ -141,18 +129,7 @@ extension SleepTimeViewController: SleepTimeViewing {
     }
     
     func update(viewState: SleepTimeState) {
-        switch viewState {
-            case .idle:
-                updatePlayPauseButton(isPlay: false)
-            case .playing:
-                updatePlayPauseButton(isPlay: true)
-            case .recording:
-                updatePlayPauseButton(isPlay: false)
-            case .paused:
-                updatePlayPauseButton(isPlay: false)
-            case .alarm:
-                break
-        }
+        playPauseButton.setTitle(viewState.buttonTitle, for: .normal)
         stateLabel.text = viewState.stringValue
     }
     
@@ -177,12 +154,20 @@ extension SleepTimeViewController: SleepTimeViewing {
     
     func showAlarmAlert(_ completion: @escaping () -> Void) {
         let alert = UIAlertController(title: nil, message: "Alarm wend off", preferredStyle: .alert)
-        let stopAction = UIAlertAction(title: "Stop", style: .default) { _ in
+        let stopAction = UIAlertAction(title: Constants.stopButtonTitle, style: .default) { _ in
             completion()
         }
         alert.addAction(stopAction)
         present(alert, animated: true)
     }
+}
+
+private enum Constants {
+    static let buttonsHeight: CGFloat = 60
+    static let playPauseButtonSpacing: CGFloat = 40
+    static let playButtonTitle = "Play"
+    static let pauseButtonTitle = "Pause"
+    static let stopButtonTitle = "Stop"
 }
 
 extension SleepTimeState {
@@ -193,6 +178,16 @@ extension SleepTimeState {
             case .recording: return "Recording"
             case .paused: return "Paused"
             case .alarm: return "Alarm"
+        }
+    }
+    
+    var buttonTitle: String {
+        switch self {
+            case .idle: return Constants.playButtonTitle
+            case .playing: return Constants.pauseButtonTitle
+            case .recording: return Constants.stopButtonTitle
+            case .paused: return Constants.playButtonTitle
+            case .alarm: return Constants.stopButtonTitle
         }
     }
 }

@@ -40,6 +40,15 @@ final class AudioLoopPlayer {
         queuePlayer?.play()
     }
     
+    func stop() {
+        playerLooper?.disableLooping()
+        queuePlayer?.pause()
+        queuePlayer?.removeAllItems()
+        
+        queuePlayer = nil
+        playerLooper = nil
+    }
+    
     // MARK: - Private
     
     private func observeEndOfDuration(_ duration: TimeInterval, asset: AVAsset, completion: (() -> Void)?) {

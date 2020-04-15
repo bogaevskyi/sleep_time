@@ -12,6 +12,7 @@ import UserNotifications
 protocol NotificationManaging {
     func requestAuthorization()
     func scheduleNotification(at date: Date)
+    func cancelNotification()
 }
 
 final class NotificationManager: NotificationManaging {
@@ -35,7 +36,6 @@ final class NotificationManager: NotificationManaging {
         let content = UNMutableNotificationContent()
         content.title = "Sleep Time"
         content.body = "Alarm went off"
-        content.sound = UNNotificationSound.default
         
         let dateComponents = makeDateComponents(with: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
@@ -43,9 +43,13 @@ final class NotificationManager: NotificationManaging {
 
         notificationCenter.add(request) { (error) in
             if let error = error {
-                print("Error \(error.localizedDescription)")
+                print("UNMutableNotificationContent add Error \(error.localizedDescription)")
             }
         }
+    }
+    
+    func cancelNotification() {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [Constants.notificationIdentifier])
     }
     
     // MARK: - DateComponents
